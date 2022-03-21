@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "randr.h"
+#include "colourramp.h"
 
 static struct xcb_screen_t *find_screen(struct xcb_connection_t *conn,
 					int preferred)
@@ -149,7 +150,7 @@ static int set_colour_temperature(struct zora_randr_state *state,
 
 	if (temperature != 6500) {
 		/* 6500K is neutral colour */
-		/* TODO */
+		colourramp_interpolate_temperature(r, g, b, len, temperature);
 	}
 
 	ret = apply_gamma_ramp(state->conn, crtc, len, r, g, b);

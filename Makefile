@@ -1,7 +1,7 @@
 PROGNAME = zora
 PROG_CFLAGS = -Wall
 PROG_LFLAGS = $(shell pkg-config --cflags --libs xcb xcb-randr)
-OBJECTS = main.o randr.o
+OBJECTS = main.o randr.o colourramp.o
 
 CC = gcc
 RM = rm -f
