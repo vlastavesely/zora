@@ -11,7 +11,9 @@ all:
 include $(wildcard *.d)
 
 all: $(PROGNAME)
-	./$(PROGNAME)
+	./$(PROGNAME) -o 1600
+	sleep 1
+	./$(PROGNAME) -x
 
 $(PROGNAME): $(OBJECTS)
 	$(CC) $^ -o $@ $(PROG_LFLAGS)
