@@ -5,6 +5,7 @@ OBJECTS = main.o randr.o colourramp.o
 
 CC = gcc
 RM = rm -f
+INSTALL_PROGRAM = install -m 0755
 
 all:
 
@@ -20,6 +21,12 @@ $(PROGNAME): $(OBJECTS)
 
 %.o: %.c
 	$(CC) -MMD -MP -c $< -o $@ $(PROG_CFLAGS)
+
+install:
+	$(INSTALL_PROGRAM) $(PROGNAME) /usr/bin
+
+uninstall:
+	$(RM) /usr/bin/$(PROGNAME)
 
 clean:
 	$(RM) $(PROGNAME) *.o *.d
