@@ -1,3 +1,11 @@
+/*
+ * Copyright © 2022  Vlasta Vesely
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted.
+ *
+ * There's ABSOLUTELY NO WARRANTY, express or implied.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
