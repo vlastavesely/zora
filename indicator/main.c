@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022  Vlasta Vesely
+ * Copyright © 2022, Vlasta Vesely
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted.
@@ -12,17 +12,20 @@
 
 struct zora_state {
 	struct zora_randr_state state;
+	ZoraIndicator *indicator;
 };
 
 static int initialise(struct zora_state *state)
 {
 	zora_randr_initialise(&state->state);
+	state->indicator = zora_indicator_new();
 	return 0;
 }
 
 static int finalise(struct zora_state *state)
 {
 	zora_randr_finalise(&state->state);
+	zora_indicator_free(state->indicator);
 	return 0;
 }
 
@@ -37,7 +40,7 @@ int main(int argc, char **argv)
 	if (ret != 0)
 		return ret;
 
-	puts("TODO");
+	gtk_main();
 
 	finalise(&state);
 
