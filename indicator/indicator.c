@@ -7,14 +7,27 @@
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
 #include "indicator.h"
+#include "dock.h"
 
 G_DEFINE_TYPE(ZoraIndicator, zora_indicator, APP_INDICATOR_TYPE);
 
+static void popup_dock(ZoraIndicator *indicator)
+{
+	unsigned int x, y;
+
+	x = y = 100; /* FIXME */
+
+	gtk_window_move(GTK_WINDOW(indicator->dock), x, y);
+	gtk_widget_show_all(indicator->dock);
+}
+
 static int button_press_event(GtkStatusIcon *icon, GdkEvent *event, void *data)
 {
+	ZoraIndicator *indicator = data;
+
 	switch (event->button.button) {
 	case 1:
-		puts("activate"); /* TODO */
+		popup_dock(indicator);
 		break;
 	case 2:
 		puts("enable"); /* TODO */
@@ -38,8 +51,10 @@ static GtkStatusIcon *fallback(AppIndicator *indicator)
 	GtkStatusIcon *icon;
 
 	icon = gtk_status_icon_new_from_icon_name("zora");
-	g_signal_connect(icon, "button-press-event", G_CALLBACK(button_press_event), NULL);
-	g_signal_connect(icon, "scroll-event", G_CALLBACK(scroll_event), NULL);
+	g_signal_connect(icon, "button-press-event", G_CALLBACK(button_press_event),
+			 indicator);
+	g_signal_connect(icon, "scroll-event", G_CALLBACK(scroll_event),
+			 indicator);
 
 	return icon;
 }
@@ -60,6 +75,7 @@ static void zora_indicator_class_init(ZoraIndicatorClass *klass)
 
 static void zora_indicator_init(ZoraIndicator *self)
 {
+	self->dock = GTK_WIDGET(zora_dock_new());
 }
 
 ZoraIndicator *zora_indicator_new()

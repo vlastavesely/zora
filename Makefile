@@ -12,7 +12,7 @@ INDICATOR_LFLAGS = $(LFLAGS) $(shell pkg-config --libs $(INDICATOR_LIBS))
 
 ZORA_OBJECTS = zora/zora.o zora/randr.o zora/colourramp.o
 INDICATOR_OBJECTS = zora/randr.o zora/colourramp.o indicator/main.o	\
-	indicator/indicator.o
+	indicator/indicator.o indicator/dock.o
 
 
 all: zora/zora indicator/zora-indicator

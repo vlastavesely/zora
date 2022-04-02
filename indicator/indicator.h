@@ -6,10 +6,11 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#ifndef __INDICATOR_H
-#define __INDICATOR_H
+#ifndef __ZORA_INDICATOR_H
+#define __ZORA_INDICATOR_H
 
 #include <libayatana-appindicator/app-indicator.h>
+#include "dock.h"
 
 typedef struct ZoraIndicator       ZoraIndicator;
 typedef struct ZoraIndicatorClass  ZoraIndicatorClass;
@@ -20,6 +21,7 @@ struct ZoraIndicatorClass {
 
 struct ZoraIndicator {
 	AppIndicator parent;
+	GtkWidget *dock;
 };
 
 #define ZORA_INDICATOR_TYPE  (zora_indicator_get_type())
@@ -27,4 +29,4 @@ struct ZoraIndicator {
 ZoraIndicator *zora_indicator_new();
 void zora_indicator_free(ZoraIndicator *indicator);
 
-#endif /* __INDICATOR_H */
+#endif /* __ZORA_INDICATOR_H */
