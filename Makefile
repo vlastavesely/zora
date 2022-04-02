@@ -1,32 +1,32 @@
-PROGNAME = zora
-PROG_CFLAGS = -Wall
-PROG_LFLAGS = $(shell pkg-config --cflags --libs xcb xcb-randr)
-OBJECTS = zora.o randr.o colourramp.o
-
 CC = gcc
 RM = rm -f
+INSTALL_DATA    = install -m 0644
 INSTALL_PROGRAM = install -m 0755
 
-all:
+CFLAGS = $(shell pkg-config --cflags xcb xcb-randr) -Wall
+LFLAGS = $(shell pkg-config --libs xcb xcb-randr)
 
-include $(wildcard *.d)
+ZORA_OBJECTS = zora/zora.o zora/randr.o zora/colourramp.o
 
-all: $(PROGNAME)
-	./$(PROGNAME) -o 1600
+
+all: zora/zora
+	zora/zora -o 1600
 	sleep 1
-	./$(PROGNAME) -x
+	zora/zora -x
 
-$(PROGNAME): $(OBJECTS)
-	$(CC) $^ -o $@ $(PROG_LFLAGS)
+include $(wildcard */*.d)
+
+zora/zora: $(ZORA_OBJECTS)
+	$(CC) $^ -o $@ $(LFLAGS)
 
 %.o: %.c
-	$(CC) -MMD -MP -c $< -o $@ $(PROG_CFLAGS)
+	$(CC) -MMD -MP -c $< -o $@ $(CFLAGS)
 
 install:
-	$(INSTALL_PROGRAM) $(PROGNAME) /usr/bin
+	$(INSTALL_PROGRAM) zora/zora /usr/bin
 
 uninstall:
-	$(RM) /usr/bin/$(PROGNAME)
+	$(RM) /usr/bin/zora
 
 clean:
-	$(RM) $(PROGNAME) *.o *.d
+	$(RM) zora/zora */*.o */*.d

@@ -1,3 +1,11 @@
+/*
+ * Copyright © 2022  Vlasta Vesely
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted.
+ *
+ * There's ABSOLUTELY NO WARRANTY, express or implied.
+ */
 #include <stdlib.h>
 #include "randr.h"
 #include "colourramp.h"
@@ -179,5 +187,6 @@ int zora_randr_set_colour_temperature(struct zora_randr_state *state,
 
 void zora_randr_finalise(struct zora_randr_state *state)
 {
+	free(state->crtcs);
 	xcb_disconnect(state->conn);
 }

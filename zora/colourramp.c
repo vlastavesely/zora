@@ -1,10 +1,16 @@
 /*
  * Based on https://github.com/jonls/redshift/blob/master/src/colorramp.c
  *
- * Copyright (c) 2022  Vlasta Vesely <vlastavesely@protonmail.ch>
- * Copyright (c) 2014  Jon Lund Steffensen <jonlst@gmail.com>
- * Copyright (c) 2013  Ingo Thies <ithies@astro.uni-bonn.de>
+ * Copyright © 2022  Vlasta Vesely <vlastavesely@protonmail.ch>
+ * Copyright © 2014  Jon Lund Steffensen <jonlst@gmail.com>
+ * Copyright © 2013  Ingo Thies <ithies@astro.uni-bonn.de>
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted.
+ *
+ * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
+
 #include "colourramp.h"
 
 static const float blackbody_colour[] = {
