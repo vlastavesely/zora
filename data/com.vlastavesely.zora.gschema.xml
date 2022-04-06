@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<schemalist>
+  <schema id="com.vlastavesely.zora" path="/com/vlastavesely/zora/">
+    <key name="temperature" type="u">
+      <default>6500</default>
+      <range min="1000" max="13000"/>
+      <summary>The temperature colour</summary>
+    </key>
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Whether the temperature colour should be changed</summary>
+    </key>
+  </schema>
+</schemalist>

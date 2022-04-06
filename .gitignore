@@ -1,4 +1,5 @@
 /zora/zora
 /indicator/zora-indicator
+/data/*.compiled
 *.o
 *.d
