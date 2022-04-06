@@ -6,7 +6,7 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#include "indicator.h"
+#include <indicator/zora-indicator.h>
 
 int main(int argc, char **argv)
 {

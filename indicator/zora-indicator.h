@@ -10,8 +10,8 @@
 #define __ZORA_INDICATOR_H
 
 #include <libayatana-appindicator/app-indicator.h>
-#include "zora-control.h"
-#include "dock.h"
+#include <indicator/zora-control.h>
+#include <indicator/zora-dock.h>
 
 typedef struct ZoraIndicator       ZoraIndicator;
 typedef struct ZoraIndicatorClass  ZoraIndicatorClass;

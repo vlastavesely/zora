@@ -10,7 +10,7 @@
 #define __ZORA_DOCK_H
 
 #include <gtk/gtk.h>
-#include "zora-control.h"
+#include <indicator/zora-control.h>
 
 typedef struct ZoraDock       ZoraDock;
 typedef struct ZoraDockClass  ZoraDockClass;

@@ -10,7 +10,7 @@
 #define __ZORA_CONTROL_H
 
 #include <gtk/gtk.h>
-#include "../zora/randr.h"
+#include <zora/randr.h>
 
 typedef struct ZoraControl       ZoraControl;
 typedef struct ZoraControlClass  ZoraControlClass;

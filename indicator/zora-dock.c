@@ -6,7 +6,7 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#include "dock.h"
+#include <indicator/zora-dock.h>
 
 enum {
 	PROP_CONTROL = 1,

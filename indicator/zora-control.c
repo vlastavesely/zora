@@ -6,7 +6,7 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#include "zora-control.h"
+#include <indicator/zora-control.h>
 
 #define SCHEME "com.vlastavesely.zora"
 

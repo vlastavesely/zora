@@ -6,8 +6,8 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#include "indicator.h"
-#include "dock.h"
+#include <indicator/zora-indicator.h>
+#include <indicator/zora-dock.h>
 
 #define SCHEME "com.vlastavesely.zora"
 
