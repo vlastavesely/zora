@@ -10,6 +10,7 @@
 #define __ZORA_INDICATOR_H
 
 #include <libayatana-appindicator/app-indicator.h>
+#include "zora-control.h"
 #include "dock.h"
 
 typedef struct ZoraIndicator       ZoraIndicator;
@@ -21,10 +22,15 @@ struct ZoraIndicatorClass {
 
 struct ZoraIndicator {
 	AppIndicator parent;
+	ZoraControl *control;
+	GtkStatusIcon *icon;
 	GtkWidget *dock;
+	int dock_shown;
 };
 
 #define ZORA_INDICATOR_TYPE  (zora_indicator_get_type())
+#define ZORA_INDICATOR(o)    (G_TYPE_CHECK_INSTANCE_CAST((o), \
+			      ZORA_INDICATOR_TYPE, ZoraIndicator))
 
 ZoraIndicator *zora_indicator_new();
 void zora_indicator_free(ZoraIndicator *indicator);
