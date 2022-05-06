@@ -24,6 +24,7 @@ struct ZoraIndicator {
 	AppIndicator parent;
 	ZoraControl *control;
 	GtkStatusIcon *icon;
+	GtkMenu *popup;
 	GtkWidget *dock;
 	int dock_shown;
 };

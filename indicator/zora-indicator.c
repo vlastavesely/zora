@@ -11,6 +11,18 @@
 
 #define SCHEME "com.vlastavesely.zora"
 
+static const char *menu_str =
+	"<interface>"
+	"  <menu id=\"menu\">"
+	"    <section>"
+	"      <item>"
+	"        <attribute name=\"label\">Enabled</attribute>"
+	"        <attribute name=\"action\">zora.state</attribute>"
+	"      </item>"
+	"    </section>"
+	"  </menu>"
+	"</interface>";
+
 G_DEFINE_TYPE(ZoraIndicator, zora_indicator, APP_INDICATOR_TYPE);
 
 static void dock_seat_grab(GtkWidget *dock, GdkDisplay *display)
@@ -137,6 +149,37 @@ static void property_changed(ZoraControl *control, const GParamSpec *pspec,
 	update_indicator_state(indicator);
 }
 
+static GtkMenu *create_popup_menu(ZoraIndicator *indicator)
+{
+	GtkBuilder *builder;
+	GMenuModel *model;
+	GActionGroup *map;
+	GPropertyAction *action;
+	GtkMenu *menu;
+
+	builder = gtk_builder_new_from_string(menu_str, -1);
+	model = G_MENU_MODEL(gtk_builder_get_object(builder, "menu"));
+	menu = GTK_MENU(gtk_menu_new_from_model(model));
+	g_object_unref(builder);
+
+	map = G_ACTION_GROUP(g_simple_action_group_new());
+
+	action = g_property_action_new("state", indicator->control, "enabled");
+	g_action_map_add_action(map, action);
+
+	gtk_widget_insert_action_group(GTK_WIDGET(menu), "zora",
+				       G_ACTION_GROUP(map));
+
+	gtk_widget_show_all(GTK_WIDGET(menu));
+
+	return menu;
+}
+
+static void show_popup_menu(ZoraIndicator *indicator)
+{
+	gtk_menu_popup_at_pointer(indicator->popup, NULL);
+}
+
 static int button_press_event(GtkStatusIcon *icon, GdkEvent *event, void *data)
 {
 	ZoraIndicator *indicator = data;
@@ -157,7 +200,7 @@ static int button_press_event(GtkStatusIcon *icon, GdkEvent *event, void *data)
 		}
 		break;
 	case 3:
-		puts("popup"); /* TODO */
+		show_popup_menu(indicator);
 		break;
 	}
 
@@ -248,6 +291,7 @@ static void zora_indicator_init(ZoraIndicator *indicator)
 {
 	ZoraControl *control;
 	ZoraDock *dock;
+	GtkMenu *popup;
 
 	control = zora_control_new();
 	dock = zora_dock_new(control);
@@ -264,6 +308,9 @@ static void zora_indicator_init(ZoraIndicator *indicator)
 			 G_CALLBACK(dock_key_release), indicator);
 
 	indicator->control = control;
+	popup = create_popup_menu(indicator);
+
+	indicator->popup = popup;
 	indicator->dock = GTK_WIDGET(dock);
 	indicator->dock_shown = 0;
 }
