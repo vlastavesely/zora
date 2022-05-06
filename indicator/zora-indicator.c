@@ -118,7 +118,7 @@ static int dock_button_press(GtkWidget *dock, GdkEventButton *event, void *data)
 static void update_indicator_state(ZoraIndicator *indicator)
 {
 	unsigned int temperature;
-	const char *icon = "zora";
+	const char *icon_name;
 	char buf[256];
 
 	if (!indicator->icon)
@@ -132,14 +132,9 @@ static void update_indicator_state(ZoraIndicator *indicator)
 		snprintf(buf, 256, "Colour temperature: Disabled");
 	}
 
-	if (temperature == 6500) {
-		icon = "zora-white";
-	} else if (temperature > 6500) {
-		icon = "zora-blue";
-	}
-
+	icon_name = indicator->control->enabled ? "zora" : "zora-disabled";
 	gtk_status_icon_set_tooltip_text(indicator->icon, buf);
-	g_object_set(G_OBJECT(indicator->icon), "icon-name", icon, NULL);
+	g_object_set(G_OBJECT(indicator->icon), "icon-name", icon_name, NULL);
 }
 
 
