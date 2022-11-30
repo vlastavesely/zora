@@ -124,15 +124,16 @@ static void update_indicator_state(ZoraIndicator *indicator)
 	if (!indicator->icon)
 		return;
 
-	if (indicator->control->enabled) {
+	if (indicator->control->enabled && indicator->control->temperature != 6500) {
 		temperature = indicator->control->temperature;
 		snprintf(buf, 256, "Colour temperature: %dK", temperature);
+		icon_name = "zora";
 	} else {
 		temperature = 6500;
 		snprintf(buf, 256, "Colour temperature: Disabled");
+		icon_name = "zora-disabled";
 	}
 
-	icon_name = indicator->control->enabled ? "zora" : "zora-disabled";
 	gtk_status_icon_set_tooltip_text(indicator->icon, buf);
 	g_object_set(G_OBJECT(indicator->icon), "icon-name", icon_name, NULL);
 }
