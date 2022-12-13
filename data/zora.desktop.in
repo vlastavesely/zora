@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Zora
+Comment=Temperature Colour Adjusting Tool
+Exec=zora-indicator
+Terminal=false
+Type=Application
+Icon=zora
+Categories=GTK;Utility;
