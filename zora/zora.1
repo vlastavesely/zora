@@ -1,0 +1,80 @@
+.TH "zora" "1" "13 December 2022" "zora" "Colour Temperature Setup"
+
+.SH NAME
+.B zora
+- tool for changing the colour temperature of the screen
+
+
+.SH SYNOPSIS
+.SY zora
+.RB [ -o
+.IR TEMP ]
+.RB [ -x ]
+.YS
+
+
+.SH DESCRIPTION
+.B zora
+is a command line tool for manual adjustment of the colour temperature of the
+screen. It allows to set the temperature between 0K and 13000K, 6500K being
+the neutral temperature. There is only support for the X Window System
+(which means that it does not work on Wayland).
+
+
+.SH OPTIONS
+.BR \-o
+.IR TEMP ,
+.B \-\-output
+.I TEMP
+.RS 4
+The colour temperature in Kelvins; it is a number between
+.I 0
+and
+.IR 13000 .
+.RE
+
+.BR \-x ,
+.B \-\-reset
+.RS 4
+Reset the colour temperature back to the neutral value (6500K)
+.RE
+
+.BR \-h ,
+.B \-\-help
+.RS 4
+Show the usage information and exit.
+.RE
+
+.BR \-v ,
+.B \-\-version
+.RS 4
+Show the version number and exit.
+.RE
+
+
+.SH FURTHER INFORMATION
+More information on the colour temperature can be found on Wikipedia:
+
+.RS 2
+.I https://en.wikipedia.org/wiki/Color_temperature
+.RE
+
+
+.SH REPORTING BUGS
+If you encounter a bug, you should make sure that you are using the latest
+version of the software. If you are and the bug is still present, you can
+report it on the GitHub issues tracker:
+.IR https://github.com/vlastavesely/zora/issues .
+
+
+.SH LICENSE AND WARRANTY
+Copyright © 2022  Vlasta Vesely
+.RI < vlastavesely@protonmail.ch >.
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License version 2 as published by the
+Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
