@@ -1,5 +1,6 @@
 /zora/zora
 /indicator/zora-indicator
 /data/*.compiled
+/data/*.desktop
 *.o
 *.d
