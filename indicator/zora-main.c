@@ -6,21 +6,17 @@
  *
  * There's ABSOLUTELY NO WARRANTY, express or implied.
  */
-#include <indicator/zora-indicator.h>
+#include <indicator/zora-application.h>
 
 int main(int argc, char **argv)
 {
-	ZoraIndicator *indicator;
+	ZoraApplication *app;
+	int ret;
 
-	gtk_init(&argc, &argv);
+	app = zora_application_new();
 
-	indicator = zora_indicator_new();
-	if (indicator == NULL)
-		return -1;
+	ret = g_application_run(G_APPLICATION(app), argc, (char **) argv);
+	g_object_unref(app);
 
-	gtk_main();
-
-	zora_indicator_free(indicator);
-
-	return 0;
+	return ret;
 }
