@@ -40,21 +40,21 @@ indicator/%.o: indicator/%.c
 	$(CC) -MMD -MP -c $< -o $@ $(INDICATOR_CFLAGS)
 
 data/zora.desktop: data/zora.desktop.in
-	cat $< >$@
+	cat $< >$@; chmod +x $@
 
 data/gschemas.compiled: data/com.vlastavesely.zora.gschema.xml
 	$(SCHEMAGEN) data
 
 install-files:
-	$(INSTALL_PROGRAM) zora/zora indicator/zora-indicator /usr/bin
-	$(INSTALL_PROGRAM) data/zora.desktop /usr/share/applications
-	$(INSTALL_DATA) data/com.vlastavesely.zora.gschema.xml /usr/share/glib-2.0/schemas
-	$(INSTALL_DATA) data/zora.svg data/zora-disabled.svg /usr/share/icons/hicolor/scalable/apps
-	$(SCHEMAGEN) /usr/share/glib-2.0/schemas
-	ln -sf /usr/share/applications/zora.desktop /etc/xdg/autostart/zora.desktop
+	$(INSTALL_PROGRAM) zora/zora indicator/zora-indicator $(prefix)/usr/bin
+	$(INSTALL_PROGRAM) data/zora.desktop $(prefix)/usr/share/applications
+	$(INSTALL_DATA) data/com.vlastavesely.zora.gschema.xml $(prefix)/usr/share/glib-2.0/schemas
+	cp -r data/hicolor -T $(prefix)/usr/share/icons/hicolor
+	ln -sf /usr/share/applications/zora.desktop $(prefix)/etc/xdg/autostart/zora.desktop
 
 install: install-files
-	gtk-update-icon-cache /usr/share/icons/hicolor
+	gtk-update-icon-cache $(prefix)/usr/share/icons/hicolor
+	$(SCHEMAGEN) $(prefix)/usr/share/glib-2.0/schemas
 
 uninstall-files:
 	$(RM) /usr/bin/zora /usr/bin/zora-indicator
