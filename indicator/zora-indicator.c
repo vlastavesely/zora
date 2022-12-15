@@ -149,7 +149,7 @@ static GtkMenu *create_popup_menu(ZoraIndicator *indicator)
 {
 	GtkBuilder *builder;
 	GMenuModel *model;
-	GActionGroup *map;
+	GActionMap *map;
 	GPropertyAction *action;
 	GtkMenu *menu;
 
@@ -158,10 +158,10 @@ static GtkMenu *create_popup_menu(ZoraIndicator *indicator)
 	menu = GTK_MENU(gtk_menu_new_from_model(model));
 	g_object_unref(builder);
 
-	map = G_ACTION_GROUP(g_simple_action_group_new());
+	map = G_ACTION_MAP(g_simple_action_group_new());
 
 	action = g_property_action_new("state", indicator->control, "enabled");
-	g_action_map_add_action(map, action);
+	g_action_map_add_action(map, G_ACTION(action));
 
 	gtk_widget_insert_action_group(GTK_WIDGET(menu), "zora",
 				       G_ACTION_GROUP(map));
