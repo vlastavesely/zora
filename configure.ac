@@ -13,7 +13,7 @@ AC_PROG_LN_S
 
 # Checks for libraries.
 PKG_CHECK_MODULES(GTK, gtk+-3.0)
-PKG_CHECK_MODULES(INDICATOR, ayatana-appindicator3-0.1)
+PKG_CHECK_MODULES(AYATANA, ayatana-appindicator3-0.1)
 PKG_CHECK_MODULES(XCB, xcb)
 PKG_CHECK_MODULES(XCB_RANDR, xcb-randr)
 

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Zora
-Comment=Temperature Colour Adjusting Tool
+Comment=Colour Temperature Adjustment
 Exec=zora-indicator
 Terminal=false
 Type=Application
