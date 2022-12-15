@@ -1,15 +1,26 @@
-CC = gcc
+CC = @CC@
 RM = rm -f
 SCHEMAGEN = glib-compile-schemas
-INSTALL_DATA    = install -m 0644
-INSTALL_PROGRAM = install -m 0755
+INSTALL_DATA    = @INSTALL_DATA@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
 
-CFLAGS = $(shell pkg-config --cflags xcb xcb-randr) -Wall
-LFLAGS = $(shell pkg-config --libs xcb xcb-randr)
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LFLAGS = @GTK_LIBS@
 
-INDICATOR_LIBS = gtk+-3.0 ayatana-appindicator3-0.1
-INDICATOR_CFLAGS = $(CFLAGS) $(shell pkg-config --cflags $(INDICATOR_LIBS)) -I.
-INDICATOR_LFLAGS = $(LFLAGS) $(shell pkg-config --libs $(INDICATOR_LIBS))
+INDICATOR_CFLAGS = @INDICATOR_CFLAGS@
+INDICATOR_LFLAGS = @INDICATOR_LIBS@
+
+XCB_CFLAGS = @XCB_CFLAGS@
+XCB_LFLAGS = @XCB_LIBS@
+
+XCB_RANDR_CFLAGS = @XCB_RANDR_CFLAGS@
+XCB_RANDR_LFLAGS = @XCB_RANDR_LIBS@
+
+CFLAGS = $(XCB_CFLAGS) $(XCB_RANDR_CFLAGS) -Wall
+LFLAGS = $(XCB_LIBS) $(XCB_RANDR_LIBS)
+
+INDICATOR_CFLAGS = $(CFLAGS) $(GTK_CFLAGS) $(INDICATOR_CFLAGS) -I.
+INDICATOR_LFLAGS = $(LFLAGS) $(GTK_LFLAGS) $(INDICATOR_LFLAGS)
 
 # GtkStatusIcon is deprecated in Gtk-3.0
 INDICATOR_CFLAGS += -Wno-deprecated-declarations
@@ -18,6 +29,11 @@ ZORA_OBJECTS = zora/zora.o zora/randr.o zora/colourramp.o
 INDICATOR_OBJECTS = zora/randr.o zora/colourramp.o indicator/zora-main.o  \
 	indicator/zora-application.o indicator/zora-indicator.o           \
 	indicator/zora-control.o indicator/zora-dock.o
+
+AUX_FILES =								\
+	Makefile configure configure.scan autom4te.cache autoscan.log	\
+	aclocal.m4 config.log config.status config.guess config.sub	\
+	config.h config.h.in config.h.in~ install-sh
 
 
 all: zora/zora indicator/zora-indicator data/gschemas.compiled data/zora.desktop
@@ -28,22 +44,22 @@ run: all
 include $(wildcard */*.d)
 
 zora/zora: $(ZORA_OBJECTS)
-	$(CC) $^ -o $@ $(LFLAGS)
+	$(QUIET_CC) $(CC) $^ -o $@ $(LFLAGS)
 
 indicator/zora-indicator: $(INDICATOR_OBJECTS)
-	$(CC) $^ -o $@ $(INDICATOR_LFLAGS)
+	$(QUIET_CC) $(CC) $^ -o $@ $(INDICATOR_LFLAGS)
 
 %.o: %.c
-	$(CC) -MMD -MP -c $< -o $@ $(CFLAGS)
+	$(QUIET_CC) $(CC) -MMD -MP -c $< -o $@ $(CFLAGS)
 
 indicator/%.o: indicator/%.c
-	$(CC) -MMD -MP -c $< -o $@ $(INDICATOR_CFLAGS)
+	$(QUIET_CC) $(CC) -MMD -MP -c $< -o $@ $(INDICATOR_CFLAGS)
 
 data/zora.desktop: data/zora.desktop.in
-	cat $< >$@; chmod +x $@
+	$(QUIET_GEN) cat $< >$@; chmod +x $@
 
 data/gschemas.compiled: data/com.vlastavesely.zora.gschema.xml
-	$(SCHEMAGEN) data
+	$(QUIET_GEN) $(SCHEMAGEN) data
 
 install-files:
 	$(INSTALL_PROGRAM) zora/zora indicator/zora-indicator $(prefix)/usr/bin
@@ -54,7 +70,7 @@ install-files:
 
 install: install-files
 	gtk-update-icon-cache $(prefix)/usr/share/icons/hicolor
-	$(SCHEMAGEN) $(prefix)/usr/share/glib-2.0/schemas
+	$(QUIET_GEN) $(SCHEMAGEN) $(prefix)/usr/share/glib-2.0/schemas
 
 uninstall-files:
 	$(RM) /usr/bin/zora /usr/bin/zora-indicator
@@ -67,4 +83,17 @@ uninstall: uninstall-files
 	gtk-update-icon-cache /usr/share/icons/hicolor
 
 clean:
-	$(RM) zora/zora indicator/zora-indicator */*.o */*.d data/*.compiled data/*.desktop
+	$(RM) zora/zora indicator/zora-indicator */*.o */*.d
+	$(RM) data/*.compiled data/*.desktop
+
+clean-aux:
+	$(RM) -r $(AUX_FILES)
+
+distclean: clean clean-aux
+
+
+ifndef V
+QUIET_CC    = @echo "  CC     $@";
+QUIET_LD    = @echo "  CCLD   $@";
+QUIET_GEN   = @echo "  GEN    $@";
+endif
