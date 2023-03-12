@@ -12,9 +12,10 @@
 #include <getopt.h>
 
 #include "randr.h"
+#include "../config.h"
 
-#define PROGNAME "zora"
-#define VERSION "0.1"
+#define PROGNAME PACKAGE_NAME
+#define VERSION PACKAGE_VERSION
 
 static const char *usage_str =
 	"Usage:\n"
