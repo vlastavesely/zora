@@ -10,6 +10,14 @@
 
 G_DEFINE_TYPE(ZoraApplication, zora_application, GTK_TYPE_APPLICATION);
 
+static void register_local_icons_theme()
+{
+	GtkIconTheme *theme;
+
+	theme = gtk_icon_theme_get_default();
+	gtk_icon_theme_prepend_search_path(theme, "share");
+}
+
 static void zora_application_startup(GApplication *application)
 {
 	GApplicationClass *app_class;
@@ -18,6 +26,8 @@ static void zora_application_startup(GApplication *application)
 	/* calls gtk_init() */
 	app_class = G_APPLICATION_CLASS(zora_application_parent_class);
 	app_class->startup(application);
+
+	register_local_icons_theme();
 
 	app = ZORA_APPLICATION(application);
 	app->indicator = zora_indicator_new(app);
