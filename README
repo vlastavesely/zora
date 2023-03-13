@@ -1,0 +1,29 @@
+Zora - Linux Panel Indicator for Colour Temperature Setup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Zora is a program that can adjust the colour temperature of your screen. It is
+a command line tool for manual adjustment of the colour temperature (it applies
+a redness effect to the graphical display). It allows to set the temperature
+between 0K and 13000K, 6500K being the neutral temperature. There is only
+support for the X Window System (which means that it does not work on Wayland).
+
+Also, there is a graphical indicator applet which can adjust the colour
+temperature from the notification area.
+
+
+Donations
+---------
+If you like this project and it is useful to you, consider sending a donation
+to the following Bitcoin address: 1LXAkkvKodKB237yayzCTYAsb8tYawGfHz
+
+
+Licensing Notice
+----------------
+This software is released under the terms of the GPL license version 2 as
+published by the Free Software Foundation. You can freely redistribute and/or
+modify the software under the terms of the license.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+For more information on details of the license, see the file COPYING.
